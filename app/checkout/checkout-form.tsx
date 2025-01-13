@@ -141,7 +141,7 @@ const CheckoutForm = () => {
         variant: 'default',
       })
       clearCart()
-      router.push(`/checkout/${res.data?.orderId}`)
+      router.push(`/account/orders/${res.data?.orderId}`)
     }
   }
   const handleSelectPaymentMethod = () => {

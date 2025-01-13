@@ -6,8 +6,14 @@ import { AVAILABLE_DELIVERY_DATES } from '../constants'
 import { connectToDatabase } from '../db'
 import { auth } from '@/auth'
 import { OrderInputSchema } from '../validator'
-import Order from '../db/models/order.model'
+import Order, { IOrder } from '../db/models/order.model'
 // import { FREE_SHIPPING_MIN_PRICE } from '../constants'
+
+export async function getOrderById(orderId: string): Promise<IOrder> {
+  await connectToDatabase()
+  const order = await Order.findById(orderId)
+  return JSON.parse(JSON.stringify(order))
+}
 
 export const createOrder = async (clientSideCart: Cart) => {
   try {
@@ -79,9 +85,9 @@ export const calcDeliveryDateAndPrice = async ({
     !shippingAddress || !deliveryDate
       ? undefined
       : deliveryDate.freeShippingMinPrice > 0 &&
-        itemsPrice >= deliveryDate.freeShippingMinPrice
-      ? 0
-      : deliveryDate.shippingPrice
+          itemsPrice >= deliveryDate.freeShippingMinPrice
+        ? 0
+        : deliveryDate.shippingPrice
 
   const taxPrice = !shippingAddress ? undefined : round2(itemsPrice * 0.15)
   const totalPrice = round2(
