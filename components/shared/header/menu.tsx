@@ -10,14 +10,15 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import ThemeSwitcher from './theme-switcher'
-export default function Menu() {
+export default function Menu({ forAdmin = false }: { forAdmin?: boolean }) {
   return (
     <div className='flex justify-end'>
       <nav className='flex gap-3 w-full'>
         <ThemeSwitcher />
         <UserButton />
+        {forAdmin ? null : <CartButton />}
 
-        <CartButton />
+        {/* <CartButton /> */}
       </nav>
       <nav className='md:hidden'>
         <Sheet>
