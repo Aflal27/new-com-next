@@ -1,29 +1,29 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'NxtAmzn'
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Dealio-shop'
 export const APP_SLOGAN = process.env.APP_SLOGAN || 'Spend less, enjoy more.'
-export const APP_DESCRIPTION = process.env.DESCRIPTION || 'Next.js Amazon clone'
+export const APP_DESCRIPTION =
+  process.env.DESCRIPTION ||
+  'Dealio-Shop is a modern e-commerce platform offering a wide range of high-quality cosmetics. Shop top beauty products with a seamless and user-friendly experience.'
 export const PAGE_SIZE = Number(process.env.PAGE_SIZE || 9)
 export const FREE_SHIPPING_MIN_PRICE = Number(
   process.env.FREE_SHIPPING_MIN_PRICE || 35
 )
+export const APP_LOGO = '/images/logo.png'
 export const APP_COPYRIGHT =
   process.env.NEXT_PUBLIC_APP_COPYRIGHT ||
   `Copyright © 2025 ${APP_NAME}. All rights reserved.`
 
 export const AVAILABLE_PAYMENT_METHODS = [
   {
-    name: 'PayPal',
-    commission: 0,
-    isDefault: true,
-  },
-  {
-    name: 'Stripe',
-    commission: 0,
-    isDefault: true,
-  },
-  {
     name: 'Cash On Delivery',
     commission: 0,
     isDefault: true,
+    disabled: false,
+  },
+  {
+    name: 'Online Payment',
+    commission: 0,
+    isDefault: true,
+    disabled: true,
   },
 ]
 export const DEFAULT_PAYMENT_METHOD =
@@ -52,8 +52,7 @@ export const AVAILABLE_DELIVERY_DATES = [
 export const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-export const SENDER_EMAIL =
-  process.env.SENDER_EMAIL || 'mohamedaflal6719@gmail.com'
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || 'dealing.lk@gmail.com'
 export const SENDER_NAME = process.env.SENDER_NAME || APP_NAME
 
 export const USER_ROLES = ['Admin', 'User']

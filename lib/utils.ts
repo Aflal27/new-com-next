@@ -43,10 +43,11 @@ export const toSlug = (text: string): string =>
     .replace(/-+/g, '-')
 
 const CURRENCY_FORMATTER = new Intl.NumberFormat('en-US', {
-  currency: 'USD',
   style: 'currency',
+  currency: 'LKR', // Specify currency explicitly
   minimumFractionDigits: 2,
 })
+
 export function formatCurrency(amount: number) {
   return CURRENCY_FORMATTER.format(amount)
 }

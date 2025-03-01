@@ -460,17 +460,23 @@ const CheckoutForm = () => {
                       onValueChange={(value) => setPaymentMethod(value)}
                     >
                       {AVAILABLE_PAYMENT_METHODS.map((pm) => (
-                        <div key={pm.name} className='flex items-center py-1 '>
+                        <div key={pm.name} className='flex items-center py-1'>
                           <RadioGroupItem
                             value={pm.name}
                             id={`payment-${pm.name}`}
+                            disabled={pm.disabled} // Disable if it's online payment
                           />
                           <Label
-                            className='font-bold pl-2 cursor-pointer'
+                            className={`font-bold pl-2 cursor-pointer ${pm.disabled ? 'text-gray-400' : ''}`}
                             htmlFor={`payment-${pm.name}`}
                           >
                             {pm.name}
                           </Label>
+                          {pm.disabled && (
+                            <span className='text-sm text-red-500 pl-2'>
+                              (Will be added soon)
+                            </span>
+                          )}
                         </div>
                       ))}
                     </RadioGroup>

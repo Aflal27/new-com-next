@@ -11,7 +11,11 @@ import { auth } from '@/auth'
 import { OrderInputSchema } from '../validator'
 import Order, { IOrder } from '../db/models/order.model'
 import { revalidatePath } from 'next/cache'
-import { sendAskReviewOrderItems, sendPurchaseReceipt } from '@/emails'
+import {
+  sendAskReviewOrderItems,
+  sendOrderEmail,
+  sendPurchaseReceipt,
+} from '@/emails'
 import mongoose from 'mongoose'
 
 // GET
@@ -59,6 +63,11 @@ export const createOrder = async (clientSideCart: Cart) => {
       clientSideCart,
       session.user.id!
     )
+
+    await sendOrderEmail({
+      orderDetails: createdOrder,
+    })
+
     return {
       success: true,
       message: 'Order placed successfully',
@@ -123,7 +132,8 @@ export const calcDeliveryDateAndPrice = async ({
         ? 0
         : deliveryDate.shippingPrice
 
-  const taxPrice = !shippingAddress ? undefined : round2(itemsPrice * 0.15)
+  const taxPrice = 0
+  //!shippingAddress ? undefined : round2(itemsPrice * 0.15)
   const totalPrice = round2(
     itemsPrice +
       (shippingPrice ? round2(shippingPrice) : 0) +

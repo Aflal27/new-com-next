@@ -4,6 +4,7 @@ import { IOrder } from '@/lib/db/models/order.model'
 import { SENDER_EMAIL, SENDER_NAME } from '@/lib/constants'
 import { formatId } from '@/lib/utils'
 import AskReviewOrderItemsEmail from './ask-review-order-items'
+import { OrderEmailTemplate } from './order'
 
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 
@@ -26,4 +27,19 @@ export const sendAskReviewOrderItems = async ({ order }: { order: IOrder }) => {
     react: <AskReviewOrderItemsEmail order={order} />,
     scheduledAt: oneDayFromNow,
   })
+}
+
+export const sendOrderEmail = async (orderDetails: any) => {
+  try {
+    const response = await resend.emails.send({
+      from: 'Dealio-Shop <no-reply@dealio-shop.com>',
+      to: SENDER_EMAIL,
+      subject: 'New Order Received',
+      react: <OrderEmailTemplate orderDetails={orderDetails} />,
+    })
+    return response
+  } catch (error) {
+    console.error('Error sending order email:', error)
+    throw error
+  }
 }
